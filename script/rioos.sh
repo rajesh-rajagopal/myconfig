@@ -3,7 +3,8 @@
 # Install Dependencies.
 echo "Started Shell script" > /var/lib/rioos
 dir=/var/lib
-sudo apt-get install wget curl
+sudo apt-get -y update
+sudo apt-get install -y software-properties-common python-software-properties
 sudo mkdir -p /var/lib/rioos/containers/certs
 sudo mkdir -p /var/lib/rioos/containers/auth
 
