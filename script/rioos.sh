@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Install Dependencies.
-echo "Started Shell script" > /var/lib/rioos
 dir=/var/lib
 sudo apt-get -y update
 sudo apt-get install -y software-properties-common python-software-properties
@@ -31,10 +30,8 @@ docker login registry.megam.io:5000 -u rioosadmin -p team4rio
 # Pull images from registry.
 docker pull registry.megam.io:5000/rioosccmock
 
-# Launch a container named "wp" using "Wordpress" Images
-echo "Launch a Container" >> /var/lib/rioos
+# Launch a container
 CID=$(sudo docker run -d -it -p 4201:4201 --name=rioosccmock registry.megam.io:5000/rioosccmock)
-echo "Finished LXD installation" >> /var/lib/rioos
 
 # Get container IP address.
 CIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CID)
