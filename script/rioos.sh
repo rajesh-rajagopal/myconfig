@@ -29,7 +29,7 @@ sudo docker login registry.megam.io:5000 -u rioosadmin -p team4rio
 sudo docker pull registry.megam.io:5000/rioosccmock
 
 # Launch a docker container.
-CID=$(sudo docker run -d -it -p 4201:4201 --name=rioosccmock registry.megam.io:5000/rioosccmock)
+CID=$(sudo docker run -d -it -p 4201:4201 --name=rioosccmock --restart always registry.megam.io:5000/rioosccmock)
 
 # Get container IP address.
 CIP=$(sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CID)
