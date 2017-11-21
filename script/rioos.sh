@@ -42,3 +42,4 @@ sed -i 's/Ubuntu 16.04/Rio\/OS v2/g' /usr/share/plymouth/themes/ubuntu-text/ubun
 # Update grub configuration
 update-grub
 
+exit 0
