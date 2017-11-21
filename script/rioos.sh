@@ -35,6 +35,7 @@ CID=$(sudo docker run -d -it -p 4201:4201 --name=rioosccmock registry.megam.io:5
 CIP=$(sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CID)
 
 # Rio/OS Configuration
+sed -i 's/GRUB_HIDDEN_TIMEOUT=0/# GRUB_HIDDEN_TIMEOUT=0/g' /etc/default/grub
 sed -i 's/\<quiet splash\>//g' /etc/default/grub
 sed -i 's/Ubuntu 16.04/Rio\/OS v2/g' /usr/share/plymouth/themes/ubuntu-text/ubuntu-text.plymouth
 
