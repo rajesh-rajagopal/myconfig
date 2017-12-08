@@ -17,13 +17,9 @@ function install_dependencies {
 
 function install_docker {
   docker_version=$(docker -v)
-  if [ -n "$docker_version" ]; then
-    echo -e "${GREEN}Docker already installed${NC}"
-    # check status of docker-engine
-    sudo systemctl status --no-pager docker
-  else
-    echo -e "${GREEN}Start installing docker-engine${NC}"
 
+  if ! which docker > /dev/null; then
+    echo -e "${GREEN}Start installing docker-engine${NC}"
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
     sudo apt-get update
@@ -32,6 +28,10 @@ function install_docker {
 
     # Start docker
     sudo systemctl start docker
+    sudo systemctl status --no-pager docker
+  else
+    echo -e "${GREEN}Docker already installed${NC}"
+    # check status of docker-engine
     sudo systemctl status --no-pager docker
   fi
 }
@@ -92,6 +92,7 @@ function modify_grubconfig {
   # Rio/OS Configuration
   sed -i 's/GRUB_HIDDEN_TIMEOUT=0/# GRUB_HIDDEN_TIMEOUT=0/g' /etc/default/grub
   sed -i 's/\<quiet splash\>//g' /etc/default/grub
+  sed -i.bak 's/^\(GRUB_DISTRIBUTOR=\).*/\1"Rio\/OS v2"/' /etc/default/grub
   sed -i 's/Ubuntu 16.04/Rio\/OS v2/g' /usr/share/plymouth/themes/ubuntu-text/ubuntu-text.plymouth
 
   # Update grub configuration
