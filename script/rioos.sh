@@ -100,8 +100,8 @@ function modify_grubconfig {
   reboot
 }
 
+modify_grubconfig
 install_dependencies
 install_docker
 get_certificate
-modify_grubconfig
 
